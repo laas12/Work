@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    autoscaling: "True"
+    autoscaling_max_cpu_percent: "30"
+    autoscaling_min_replicas: "3"
+    autoscaling_max_replicas: "8"
+    scale_down: "False"
+  name: kafka
+spec:
+  serviceName: "broker"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - broker
+              topologyKey: "kubernetes.io/hostname"
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: broker
+        image: bMEZGHANI Omar/kfk:latest
+        command:
+        - sh
+        - -c
+        - "./bin/kafka-server-start.sh config/server.properties"
+        ports:
+        - containerPort: 9092
+        volumeMounts:
+        - name: datadir
+          mountPath: /usr/share/logs
+        env:
+        - name: JMX_PORT
+          value: "9999"
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "example-nfs"
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 1Gi
+        limits:
+          storage: 1Gi

@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9200
+    name: 'hi'
+  - port: 9300
+    name: 'abcde'
+  selector:
+    app: elasticsearch

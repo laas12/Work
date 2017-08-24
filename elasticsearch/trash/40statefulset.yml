@@ -1,0 +1,47 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+spec:
+  serviceName: "esheadless"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      serviceAccount: developer
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: elasticsearch
+        image: elasticsearch:5.4.0
+        securityContext:
+          capabilities:
+            add:
+              - IPC_LOCK
+        args: ['-Ediscovery.zen.minimum_master_nodes=2','-Enetwork.host=_eth0_','-Ecluster.name=eskube','-Ediscovery.zen.ping.unicast.hosts=elasticsearch-1.esheadless:9300,elasticsearch-0.esheadless:9300']
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        ports:
+        - containerPort: 9200
+          name: http
+          protocol: TCP
+        - containerPort: 9300
+          name: election
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /usr/share/elasticsearch/data
+          name: es
+  volumeClaimTemplates:
+  - metadata:
+      name: es
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "example-nfs"
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 50Gi

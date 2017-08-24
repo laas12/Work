@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    autoscaling: "True"
+    autoscaling_max_cpu_percent: "30"
+    autoscaling_min_replicas: "1"
+    autoscaling_max_replicas: "8"
+    scale_down: "False"
+  name: test
+spec:
+  serviceName: "test1"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: test
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"

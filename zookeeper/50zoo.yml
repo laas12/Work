@@ -1,0 +1,41 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: zoo
+  labels:
+    autoscaler: "false"
+spec:
+  serviceName: "zoo"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: zookeeper
+          image: MEZGHANIOmar/zookeeper-statefulset:3.4.9
+          env:
+            - name: ZOO_SERVERS
+              value: server.1=zoo-0.zoo:2888:3888:participant server.2=zoo-1.zoo:2888:3888:participant server.3=zoo-2.zoo:2888:3888:participant 
+          ports:
+            - containerPort: 2181
+              name: client
+            - containerPort: 2888
+              name: peer
+            - containerPort: 3888
+              name: leader-election
+          volumeMounts:
+            - name: datadir
+              mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "example-nfs"
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 1Gi

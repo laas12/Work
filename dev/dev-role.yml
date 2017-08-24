@@ -1,0 +1,9 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  namespace: default
+  name: dev-root
+rules:
+- apiGroups: ["rbac.authorization.k8s.io","policy","autoscaling","batch","core","extensions", "apps",""] 
+  resources: ["statefulsets","componentstatuses","configmaps","daemonsets","deployments","events","endpoints","horizontalpodautoscalers","ingress","jobs","limitranges","pods","persistentvolumes","persistentvolumeclaims","resourcequotas","replicasets","replicationcontrollers","serviceaccounts","services"]
+  verbs: ["*"]

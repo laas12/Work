@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rebalancepartitions
+spec:
+  template:
+    metadata:
+      name: rebalancepartitions
+    spec:
+      containers:
+      - name: rebalancepartitions
+        image: solsson/kafka:0.10.0.1
+        command:
+        - ./bin/kafka-reassign-partitions.sh
+        - --zookeeper
+        - zookeeper:2181
+        - --topic
+        - testTopic
+      restartPolicy: Never

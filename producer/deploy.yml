@@ -1,0 +1,19 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: kafkaproducer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafkaproducer
+    spec:
+      containers:
+        - name: kafkaproducer
+          image: bsafwene/kafka_producer:latest
+          env:
+            - name: SLEEPMS
+              value: "100"
+            - name: TOPIC
+              value: "topic1"

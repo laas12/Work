@@ -1,0 +1,14 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: zooing
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zooing
+    spec:
+      containers:
+        - name: zooing
+          image: bsafwene/zooing:latest

@@ -1,0 +1,9 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  namespace: development
+  name: dev-root
+rules:
+- apiGroups: ["batch","core","extensions", "apps",""] 
+  resources: ["events","jobs","deployments","deployments/extensions","daemonsets","replicasets","replicasets/extensions","statefulsets","pods","replicationcontrollers","ResourceAll"]
+  verbs: ["list","create","delete","VerbAll"]

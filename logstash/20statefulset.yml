@@ -1,0 +1,35 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: logstash
+  labels:
+    autoscaling: "False"
+    autoscaling_max_cpu_percent: "80"
+    autoscaling_min_replicas: "1"
+    autoscaling_max_replicas: "3"
+spec:
+  serviceName: "logstash"
+  replicas: 1
+  template:
+   metadata:
+    labels:
+     app: logstash
+   spec:
+    containers:
+    - name: logstash
+      image: bsafwene/mylogstash:latest
+      volumeMounts:
+      - name: logstashdir
+        mountPath: /usr/share/logstash/data
+  volumeClaimTemplates:
+  - metadata:
+      name: logstashdir
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "example-nfs"
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 1Gi
+        limits:
+          storage: 1Gi

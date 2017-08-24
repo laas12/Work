@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: web
+  labels:
+    autoscaling: "True"
+    autoscaling_max_cpu_percent: "30"
+    autoscaling_min_cpu_percent: "10"
+    autoscaling_min_replicas: "3"
+    autoscaling_max_replicas: "10"
+spec:
+  serviceName: "nginx"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: gcr.io/google_containers/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        resources:
+          limits:
+            cpu: 100m

@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: describepartitions
+spec:
+  template:
+    metadata:
+      name: describepartitions
+    spec:
+      containers:
+      - name: kafka
+        image: solsson/kafka:0.10.0.1
+        command:
+        - ./bin/kafka-topics.sh
+        - --zookeeper
+        - zookeeper:2181
+        - --describe
+        - --topic
+        - testTopic
+      restartPolicy: Never

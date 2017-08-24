@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+  name: kafkatest
+spec:
+  containers:
+    - name: kafkatest
+      image: solsson/kafka-persistent:0.10.0@sha256:0719b4688b666490abf4b32a3cc5c5da7bb2d6276b47377b35de5429f783e9c2
+      ports:
+      - containerPort: 9092
+      command:
+        - sh
+        - -c
+        - "while true; do sleep 5m; done"

@@ -1,0 +1,44 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+spec:
+  serviceName: "elasticsearch"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: es
+        image: elasticsearch:5.3.1
+        env:
+        - name: "CLUSTER_NAME"
+          value: "myesdb"
+        - name: "DISCOVERY_SERVICE"
+          value: "elasticsearch"
+        - name: NODE_MASTER
+          value: "true"
+        - name: NODE_DATA
+          value: "true"
+        - name: HTTP_ENABLE
+          value: "true"
+        ports:
+        - containerPort: 9200
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /usr/share/elasticsearch/data
+          name: es
+  volumeClaimTemplates:
+  - metadata:
+      name: es
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "example-nfs"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 50Gi

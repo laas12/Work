@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafkamanager
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - port: 9000
+  selector:
+    app: kafkamanager
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: kafkamanager
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafkamanager
+    spec:
+      containers:
+        - name: kafkamanager
+          image: bsafwene/kafka_manager:latest
+          ports:
+          - containerPort: 9000
+            name: http
+          - containerPort: 9999
+            name: jmx

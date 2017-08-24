@@ -1,0 +1,25 @@
+[2017-05-15T15:08:56,929][INFO ][o.e.n.Node               ] [] initializing ...
+[2017-05-15T15:08:57,174][INFO ][o.e.e.NodeEnvironment    ] [Fr4LjJM] using [1] data paths, mounts [[/usr/share/elasticsearch/data (10.101.169.157:/export/pvc-433e8441-397b-11e7-a3b2-7e503c5e82a0)]], net usable_space [107gb], net total_space [117.4gb], spins? [possibly], types [nfs4]
+[2017-05-15T15:08:57,175][INFO ][o.e.e.NodeEnvironment    ] [Fr4LjJM] heap size [1.9gb], compressed ordinary object pointers [true]
+[2017-05-15T15:08:57,200][INFO ][o.e.n.Node               ] node name [Fr4LjJM] derived from node ID [Fr4LjJMRQ8mly27iPx3ySQ]; set [node.name] to override
+[2017-05-15T15:08:57,201][INFO ][o.e.n.Node               ] version[5.3.1], pid[1], build[5f9cf58/2017-04-17T15:52:53.846Z], OS[Linux/4.4.0-62-generic/amd64], JVM[Oracle Corporation/OpenJDK 64-Bit Server VM/1.8.0_121/25.121-b13]
+[2017-05-15T15:08:59,983][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [aggs-matrix-stats]
+[2017-05-15T15:08:59,988][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [ingest-common]
+[2017-05-15T15:08:59,988][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [lang-expression]
+[2017-05-15T15:08:59,989][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [lang-groovy]
+[2017-05-15T15:08:59,990][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [lang-mustache]
+[2017-05-15T15:08:59,990][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [lang-painless]
+[2017-05-15T15:08:59,991][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [percolator]
+[2017-05-15T15:08:59,991][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [reindex]
+[2017-05-15T15:08:59,992][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [transport-netty3]
+[2017-05-15T15:08:59,992][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] loaded module [transport-netty4]
+[2017-05-15T15:08:59,995][INFO ][o.e.p.PluginsService     ] [Fr4LjJM] no plugins loaded
+[2017-05-15T15:09:05,164][INFO ][o.e.n.Node               ] initialized
+[2017-05-15T15:09:05,165][INFO ][o.e.n.Node               ] [Fr4LjJM] starting ...
+[2017-05-15T15:09:05,479][WARN ][i.n.u.i.MacAddressUtil   ] Failed to find a usable hardware address from the network interfaces; using random bytes: 42:6a:b4:e2:7a:fb:1c:82
+[2017-05-15T15:09:05,581][INFO ][o.e.t.TransportService   ] [Fr4LjJM] publish_address {127.0.0.1:9300}, bound_addresses {[::1]:9300}, {127.0.0.1:9300}
+[2017-05-15T15:09:05,611][WARN ][o.e.b.BootstrapChecks    ] [Fr4LjJM] max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+[2017-05-15T15:09:08,737][INFO ][o.e.c.s.ClusterService   ] [Fr4LjJM] new_master {Fr4LjJM}{Fr4LjJMRQ8mly27iPx3ySQ}{-5VKKyohTIm0HPY2CMYWgg}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2017-05-15T15:09:08,793][INFO ][o.e.h.n.Netty4HttpServerTransport] [Fr4LjJM] publish_address {10.244.7.101:9200}, bound_addresses {[::]:9200}
+[2017-05-15T15:09:08,803][INFO ][o.e.n.Node               ] [Fr4LjJM] started
+

@@ -1,0 +1,9 @@
+kubectl -n default delete -f zookeeper 
+kubectl -n default delete -f kafka 
+kubectl -n default delete -f elasticsearch  
+kubectl -n default delete -f elasticsearch/data 
+kubectl -n default delete -f elasticsearch/master 
+kubectl -n default delete -f logstash 
+kubectl -n default delete -f kibana 
+kubectl -n default delete pvc --all 
+kubectl -n default delete pv --all 
